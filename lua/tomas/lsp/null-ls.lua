@@ -10,7 +10,10 @@ null_ls.setup({
 	debug = false,
 	sources = {
 		formatting.black,
-		formatting.reorder_python_imports,
+    formatting.gofmt,
+		formatting.reorder_python_imports.with({
+			extra_args = { "--allow-implicit-duplicates" },
+		}),
 		formatting.stylua,
 		diagnostics.flake8,
 	},
