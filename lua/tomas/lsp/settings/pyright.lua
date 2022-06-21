@@ -7,6 +7,7 @@ return {
 				typeCheckingMode = "basic",
 				diagnosticSeverityOverrides = {
 					reportUnknownParameterType = "none",
+          reportUnknownMemberType = "none",
 				},
 			},
 		},
