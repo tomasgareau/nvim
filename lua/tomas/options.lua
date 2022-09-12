@@ -1,7 +1,7 @@
 local options = {
 	backup = false, -- creates a backup file
 	clipboard = "unnamedplus", -- allows neovim to access the system clipboard
-	cmdheight = 2, -- more space in the nvim command line for displaying messages
+	cmdheight = 1, -- space in the nvim command line for displaying messages
 	completeopt = { "menuone", "noselect" },
 	conceallevel = 0, -- make `` visible in markdown files
 	cursorline = true, -- highlight the current line
