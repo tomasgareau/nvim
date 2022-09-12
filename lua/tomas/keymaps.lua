@@ -4,6 +4,13 @@ local opts = { noremap = true, silent = true }
 
 local keymap = vim.api.nvim_set_keymap
 local bufkeymap = vim.api.nvim_buf_set_keymap
+local callback_keymap = function(mode, key, mapping, callback_opts)
+	local extended_opts = {
+		callback = mapping,
+	}
+	extended_opts = vim.tbl_deep_extend("force", extended_opts, callback_opts)
+	vim.api.nvim_set_keymap(mode, key, "", extended_opts)
+end
 
 M.default_keymaps = function()
 	vim.g.mapleader = ","
@@ -76,12 +83,25 @@ M.lsp_keymaps = function(bufnr)
 	bufkeymap(bufnr, "n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
 end
 
-M.material_keymaps = function()
-	keymap("n", "<leader>mm", [[<Cmd>lua require('material.functions').toggle_style()<CR>]], opts)
-	keymap("n", "<leader>ml", [[<Cmd>lua require('material.functions').change_style('lighter')<CR>]], opts)
-	keymap("n", "<leader>md", [[<Cmd>lua require('material.functions').change_style('darker')<CR>]], opts)
-	keymap("n", "<leader>mp", [[<Cmd>lua require('material.functions').change_style('palenight')<CR>]], opts)
-	keymap("n", "<leader>mo", [[<Cmd>lua require('material.functions').change_style('oceanic')<CR>]], opts)
+M.dap_keymaps = function()
+	local dap = require("dap")
+	local dapui = require("dapui")
+	callback_keymap("n", "<leader>dc", dap.continue, opts)
+	callback_keymap("n", "<leader>dn", dap.step_over, opts)
+	callback_keymap("n", "<leader>di", dap.step_into, opts)
+	callback_keymap("n", "<leader>do", dap.step_out, opts)
+	callback_keymap("n", "<leader>db", dap.toggle_breakpoint, opts)
+	callback_keymap("n", "<leader>de", dap.eval, opts)
+	callback_keymap("v", "<leader>de", dap.eval, opts)
+	callback_keymap("n", "<leader>df", dap.float_element, opts)
+	callback_keymap("n", "<leader>ds", function()
+		dapui.float_element("scopes")
+	end, opts)
+	callback_keymap("n", "<leader>dr", function()
+		dapui.float_element("repl")
+	end, opts)
+	callback_keymap("n", "<leader>dq", dap.terminate, opts)
+	callback_keymap("n", "<leader>dt", dapui.toggle, opts)
 end
 
 return M
