@@ -49,3 +49,11 @@ end
 for k, v in pairs(window_options) do
 	vim.wo[k] = v
 end
+
+vim.api.nvim_create_autocmd(
+  "VimLeave,VimSuspend", {
+    callback = function()
+      vim.opt["guicursor"] = "a:ver90"
+    end
+  }
+)
