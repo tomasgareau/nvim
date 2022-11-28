@@ -18,7 +18,7 @@ end
 vim.cmd([[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost $HOME/.config/nvim/lua/tomas/plugins/init.lua source <afile> | PackerSync
+    autocmd BufWritePost $HOME/.config/nvim/lua/user/plugins/init.lua source <afile> | PackerSync
   augroup end
 ]])
 
@@ -53,7 +53,7 @@ return packer.startup(function(use)
 	use({
 		"junegunn/vim-easy-align",
 		config = function()
-			require("tomas.keymaps").easy_align_keymaps()
+			require("user.keymaps").easy_align_keymaps()
 		end,
 	}) -- Align on custom characters
 
@@ -64,12 +64,15 @@ return packer.startup(function(use)
 			vim.fn["mkdp#util#install"]()
 		end,
 		ft = { "markdown" },
+    config = function ()
+      require("user.plugins.markdown-preview")
+    end
 	})
 
 	use({
 		"pwntester/octo.nvim",
 		config = function()
-			require("tomas.plugins.octo")
+			require("user.plugins.octo")
 		end,
 	})
 
@@ -83,7 +86,7 @@ return packer.startup(function(use)
 		"catppuccin/nvim",
 		as = "catppuccin",
 		config = function()
-			require("tomas.plugins.catppuccin")
+			require("user.plugins.catppuccin")
 		end,
 	})
 
@@ -92,37 +95,37 @@ return packer.startup(function(use)
 	use({
 		"kyazdani42/nvim-tree.lua",
 		config = function()
-			require("tomas.plugins.nvim-tree")
-			require("tomas.keymaps").nvim_tree_keymaps()
+			require("user.plugins.nvim-tree")
+			require("user.keymaps").nvim_tree_keymaps()
 		end,
 	})
 
 	use({
 		"akinsho/bufferline.nvim",
 		config = function()
-			require("tomas.plugins.bufferline")
+			require("user.plugins.bufferline")
 		end,
 	})
 
 	use({
 		"nvim-lualine/lualine.nvim",
 		config = function()
-			require("tomas.plugins.lualine")
+			require("user.plugins.lualine")
 		end,
 	})
 
 	use({
 		"lewis6991/gitsigns.nvim",
 		config = function()
-			require("tomas.plugins.gitsigns")
+			require("user.plugins.gitsigns")
 		end,
 	})
 
 	use({
 		"nvim-telescope/telescope.nvim",
 		config = function()
-			require("tomas.plugins.telescope")
-			require("tomas.keymaps").telescope_keymaps()
+			require("user.plugins.telescope")
+			require("user.keymaps").telescope_keymaps()
 		end,
 	}) -- Telescope main
 	use("nvim-telescope/telescope-media-files.nvim") -- preview images
@@ -143,7 +146,7 @@ return packer.startup(function(use)
 			"rafamadriz/friendly-snippets", -- a bunch of snippets to use
 		},
 		config = function()
-			require("tomas.plugins.cmp")
+			require("user.plugins.cmp")
 		end,
 	}) -- The completion plugin
 
@@ -163,7 +166,7 @@ return packer.startup(function(use)
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
 		config = function()
-			require("tomas.plugins.treesitter")
+			require("user.plugins.treesitter")
 		end,
 	})
 

@@ -60,7 +60,7 @@ local function lsp_highlight_document(client)
 	end
 end
 
-local keymaps_ok, keymaps = pcall(require, "tomas.keymaps")
+local keymaps_ok, keymaps = pcall(require, "user.keymaps")
 if not keymaps_ok then
   vim.notify("Could not load keymaps during LSP setup")
 end

@@ -9,11 +9,11 @@ local debug_adapters = {
 }
 
 for _, adapter in pairs(debug_adapters) do
-	local adapter_ok, _ = pcall(require, "tomas.dap.settings." .. adapter)
+	local adapter_ok, _ = pcall(require, "user.dap.settings." .. adapter)
 	if not adapter_ok then
 		vim.notify("Failed to setup debug adapter for " .. adapter)
 	end
 end
 
-require("tomas.dap.dapui-setup")
-require("tomas.keymaps").dap_keymaps()
+require("user.dap.dapui-setup")
+require("user.keymaps").dap_keymaps()

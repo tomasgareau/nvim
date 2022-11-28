@@ -1,4 +1,4 @@
-local utils = require("tomas.utils")
+local utils = require("user.utils")
 
 return {
 	settings = {
