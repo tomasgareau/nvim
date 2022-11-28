@@ -73,6 +73,8 @@ return packer.startup(function(use)
 		end,
 	})
 
+  use("will133/vim-dirdiff") -- recursively diff directories
+
 	-- UI
 	use("ishan9299/nvim-solarized-lua")
 	use("EdenEast/nightfox.nvim")
