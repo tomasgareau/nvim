@@ -121,6 +121,8 @@ return packer.startup(function(use)
 		end,
 	})
 
+  use("junegunn/goyo.vim")
+
 	use({
 		"nvim-telescope/telescope.nvim",
 		config = function()
@@ -152,7 +154,8 @@ return packer.startup(function(use)
 
 	-- LSP
 	use("neovim/nvim-lspconfig") -- enable built-in LSP
-	use("williamboman/nvim-lsp-installer") -- language server installer
+	use("williamboman/mason.nvim") -- language server installer
+	use("williamboman/mason-lspconfig.nvim") -- language server config helper
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters & linters (where LSP doesn't include it)
 
 	-- DAP

@@ -16,7 +16,7 @@ local options = {
   number = true, -- add line numbers
   numberwidth = 4, -- use 4 spaces for numbers
   pumheight = 10, -- height of pop-up menu window
-  relativenumber = false, -- don't set relative numbered lines
+  relativenumber = true, -- do set relative numbered lines
   ruler = true, -- show current line/column
   scrolloff = 5, -- leave space from top/bottom
   shiftwidth = 2, -- the number of spaces inserted per indentation
@@ -45,6 +45,7 @@ local window_options = {
 local globals = {
   -- do_filetype_lua = 1, -- use filetype.lua
   -- did_load_filetypes = 0, -- don't use filetype.vim
+  loaded_matchparen = 1,
 }
 
 for k, v in pairs(options) do
@@ -63,6 +64,23 @@ vim.api.nvim_create_autocmd(
   "VimLeave,VimSuspend", {
   callback = function()
     vim.opt["guicursor"] = "a:ver90"
+  end
+}
+)
+
+-- Use relative numbers in normal mode, absolute in insert mode
+vim.api.nvim_create_autocmd(
+  "InsertEnter", {
+  callback = function()
+    vim.opt["relativenumber"] = false
+  end
+}
+)
+
+vim.api.nvim_create_autocmd(
+  "InsertLeave", {
+  callback = function()
+    vim.opt["relativenumber"] = true
   end
 }
 )
