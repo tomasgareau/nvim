@@ -1,6 +1,0 @@
-require("user.options")
-require("user.keymaps").default_keymaps()
-require("user.plugins")
-require("user.lsp")
-require("user.dap")
-require("user.colorscheme")
