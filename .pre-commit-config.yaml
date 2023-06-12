@@ -1,4 +1,5 @@
-- repo: https://github.com/JohnnyMorganz/StyLua
-  rev: v0.11.3
-  hooks:
-    - id: stylua
+repos:
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v0.17.1
+    hooks:
+      - id: stylua
