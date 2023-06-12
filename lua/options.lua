@@ -36,28 +36,12 @@ local options = {
 	undofile = true, -- persistent undo
 	updatetime = 300, -- faster completion
 	wildmenu = true, -- better menu
-	writebackup = false, -- make a backup before overwriting a file
-}
-local window_options = {
 	wrap = false, -- don't wrap by default
-}
-
-local globals = {
-	-- do_filetype_lua = 1, -- use filetype.lua
-	-- did_load_filetypes = 0, -- don't use filetype.vim
-	loaded_matchparen = 1,
+	writebackup = false, -- make a backup before overwriting a file
 }
 
 for k, v in pairs(options) do
-	vim.opt[k] = v
-end
-
-for k, v in pairs(window_options) do
-	vim.wo[k] = v
-end
-
-for k, v in pairs(globals) do
-	vim.g[k] = v
+	pcall(vim.api.nvim_set_option_value, k, v, {})
 end
 
 vim.api.nvim_create_autocmd("VimLeave,VimSuspend", {
