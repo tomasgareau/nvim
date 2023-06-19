@@ -22,6 +22,10 @@ function M.config()
 	local lspconfig = require("lspconfig")
 
 	local on_attach = function(client, bufnr)
+		if client.name == "lua_ls" then
+			client.server_capabilities.documentFormattingProvider = false
+			client.server_capabilities.documentRangeFormattingProvider = false
+		end
 		keymaps.lsp(bufnr)
 	end
 
