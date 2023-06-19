@@ -24,7 +24,7 @@ function M.config()
 				extra_args = { "--allow-implicit-duplicates" },
 			}),
 			formatting.stylua,
-      formatting.terraform_fmt,
+			formatting.terraform_fmt,
 		},
 	})
 end

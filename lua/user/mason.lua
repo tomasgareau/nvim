@@ -12,15 +12,14 @@ local M = {
 	},
 }
 
-
 local default_lsp_servers = {
-  "clangd",
-  "gopls",
-  "jsonls",
-  "lua_ls",
-  "pyright",
-  "rust_analyzer",
-  "tailwindcss",
+	"clangd",
+	"gopls",
+	"jsonls",
+	"lua_ls",
+	"pyright",
+	"rust_analyzer",
+	"tailwindcss",
 }
 
 local settings = {
@@ -39,7 +38,7 @@ local settings = {
 function M.config()
 	require("mason").setup(settings)
 	require("mason-lspconfig").setup({
-    ensure_installed = default_lsp_servers,
+		ensure_installed = default_lsp_servers,
 		automatic_installation = true,
 	})
 end
