@@ -1,7 +1,14 @@
 local M = {
-	["rust-analyzer"] = {
-		check = {
-			command = "clippy",
+	settings = {
+		["rust-analyzer"] = {
+			check = {
+				command = "clippy",
+			},
+			completion = {
+				postfix = {
+					enable = false,
+				},
+			},
 		},
 	},
 }

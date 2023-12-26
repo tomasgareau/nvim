@@ -8,6 +8,11 @@ local M = {
 			commit = "0e6b2ed705ddcff9738ec4ea838141654f12eeef",
 		},
 	},
+	opts = {
+		inlay_hints = {
+			enabled = true,
+		},
+	},
 }
 
 function M.config()

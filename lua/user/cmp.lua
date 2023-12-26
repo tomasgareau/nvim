@@ -19,6 +19,10 @@ local M = {
 			commit = "23c51b2a3c00f6abc4e922dbd7c3b9aca6992063",
 		},
 		{
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+			commit = "3d8912ebeb56e5ae08ef0906e3a54de1c66b92f1",
+		},
+		{
 			"saadparwaiz1/cmp_luasnip",
 			commit = "18095520391186d634a0045dacaa346291096566",
 		},
@@ -44,12 +48,35 @@ local M = {
 
 function M.config()
 	local cmp = require("cmp")
+	local types = require("cmp.types")
 	local luasnip = require("luasnip")
 	require("luasnip/loaders/from_vscode").lazy_load()
 
 	local check_backspace = function()
 		local col = vim.fn.col(".") - 1
 		return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+	end
+
+	function compare_kind_low_snippets(entry1, entry2)
+		local kind1 = entry1:get_kind() --- @type lsp.CompletionItemKind | number
+		local kind2 = entry2:get_kind() --- @type lsp.CompletionItemKind | number
+		kind1 = kind1 == types.lsp.CompletionItemKind.Text and 100 or kind1
+		kind2 = kind2 == types.lsp.CompletionItemKind.Text and 100 or kind2
+		if kind1 ~= kind2 then
+			if kind1 == types.lsp.CompletionItemKind.Snippet then
+				return false
+			end
+			if kind2 == types.lsp.CompletionItemKind.Snippet then
+				return true
+			end
+			local diff = kind1 - kind2
+			if diff < 0 then
+				return true
+			elseif diff > 0 then
+				return false
+			end
+		end
+		return nil
 	end
 
 	--   פּ ﯟ   some other good icons
@@ -146,10 +173,27 @@ function M.config()
 		},
 		sources = {
 			{ name = "nvim_lsp" },
+			{ name = "nvim_lsp_signature_help" },
 			{ name = "nvim_lua" },
 			{ name = "luasnip" },
 			{ name = "buffer" },
 			{ name = "path" },
+		},
+		sorting = {
+			comparators = {
+				cmp.config.compare.offset,
+				cmp.config.compare.exact,
+				-- cmp.config.compare.scopes,
+				cmp.config.compare.score,
+				cmp.config.compare.recently_used,
+				cmp.config.compare.locality,
+				-- use compare_kind_low_snippets to deprioritize snippets
+				-- cmp.config.compare.kind,
+				compare_kind_low_snippets,
+				-- cmp.config.compare.sort_text,
+				cmp.config.compare.length,
+				cmp.config.compare.order,
+			},
 		},
 		confirm_opts = {
 			behavior = cmp.ConfirmBehavior.Replace,

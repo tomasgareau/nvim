@@ -44,7 +44,7 @@ for k, v in pairs(options) do
 	pcall(vim.api.nvim_set_option_value, k, v, {})
 end
 
-vim.api.nvim_create_autocmd("VimLeave,VimSuspend", {
+vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, {
 	callback = function()
 		vim.opt["guicursor"] = "a:ver90"
 	end,
