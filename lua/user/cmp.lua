@@ -79,34 +79,34 @@ function M.config()
 		return nil
 	end
 
-	--   פּ ﯟ   some other good icons
-	local kind_icons = {
-		Text = "",
-		Method = "m",
-		Function = "",
-		Constructor = "",
-		Field = "",
-		Variable = "",
-		Class = "",
-		Interface = "",
-		Module = "",
-		Property = "",
-		Unit = "",
-		Value = "",
-		Enum = "",
-		Keyword = "",
-		Snippet = "",
-		Color = "",
-		File = "",
-		Reference = "",
-		Folder = "",
-		EnumMember = "",
-		Constant = "",
-		Struct = "",
-		Event = "",
-		Operator = "",
-		TypeParameter = "",
-	}
+  local kind_icons = {
+    Text = "󰉿",
+    Method = "󰆧",
+    Function = "󰊕",
+    Constructor = "",
+    Field = " ",
+    Variable = "󰀫",
+    Class = "󰠱",
+    Interface = "",
+    Module = "",
+    Property = "󰜢",
+    Unit = "󰑭",
+    Value = "󰎠",
+    Enum = "",
+    Keyword = "󰌋",
+    Snippet = "",
+    Color = "󰏘",
+    File = "󰈙",
+    Reference = "",
+    Folder = "󰉋",
+    EnumMember = "",
+    Constant = "󰏿",
+    Struct = "",
+    Event = "",
+    Operator = "󰆕",
+    TypeParameter = " ",
+    Misc = " ",
+  }
 
 	cmp.setup({
 		snippet = {
@@ -171,6 +171,7 @@ function M.config()
 				return vim_item
 			end,
 		},
+    preselect = cmp.PreselectMode.None,
 		sources = {
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lsp_signature_help" },
