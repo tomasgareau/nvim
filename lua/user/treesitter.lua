@@ -1,17 +1,17 @@
 local M = {
 	"nvim-treesitter/nvim-treesitter",
-	commit = "226c1475a46a2ef6d840af9caa0117a439465500",
+	commit = "e6cd337e30962cc0982d51fa03beedcc6bc70e3d",
 	event = "BufReadPost",
 	dependencies = {
 		{
 			"JoosepAlviste/nvim-ts-context-commentstring",
 			event = "VeryLazy",
-			commit = "729d83ecb990dc2b30272833c213cc6d49ed5214",
+			commit = "734ebad31c81c6198dfe102aa23280937c937c42",
 		},
 		{
 			"nvim-tree/nvim-web-devicons",
 			event = "VeryLazy",
-			commit = "0568104bf8d0c3ab16395433fcc5c1638efc25d4",
+			commit = "3ee60deaa539360518eaab93a6c701fe9f4d82ef",
 		},
 	},
 }
@@ -27,17 +27,23 @@ function M.config()
 
 		highlight = {
 			enable = true, -- false will disable the whole extension
-			disable = { "css" }, -- list of language that will be disabled
+			disable = function(lang, buf) -- disable for large files
+				local max_filesize = 100 * 1024 -- 100 KB
+				local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+				if ok and stats and stats.size > max_filesize then
+					return true
+				end
+			end,
 		},
 		autopairs = {
 			enable = true,
 		},
 		indent = { enable = true, disable = { "python", "css" } },
+	})
 
-		context_commentstring = {
-			enable = true,
-			enable_autocmd = false,
-		},
+	local commentstring = require("ts_context_commentstring")
+	commentstring.setup({
+		enable_autocmd = false,
 	})
 end
 

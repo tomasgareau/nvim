@@ -1,7 +1,9 @@
 local M = {
-	"iamcco/markdown-preview.nvim",
-	commit = "02cc3874738bc0f86e4b91f09b8a0ac88aef8e96",
-	ft = "markdown",
+    "iamcco/markdown-preview.nvim",
+    commit = "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
 }
 
 return M

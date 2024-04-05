@@ -58,6 +58,7 @@ function M.config()
 	})
 
 	vim.cmd("colorscheme kanagawa")
+  vim.cmd("highlight Normal ctermbg=NONE guibg=NONE")
 end
 
 return M

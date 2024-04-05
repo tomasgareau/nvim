@@ -23,6 +23,7 @@ function M.config()
 			formatting.reorder_python_imports.with({
 				extra_args = { "--allow-implicit-duplicates" },
 			}),
+      formatting.sql_formatter,
 			formatting.stylua,
 			formatting.terraform_fmt,
 		},

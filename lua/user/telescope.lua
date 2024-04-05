@@ -1,16 +1,16 @@
 local M = {
 	"nvim-telescope/telescope.nvim",
-	commit = "40c31fdde93bcd85aeb3447bb3e2a3208395a868",
+	commit = "6312868392331c9c0f22725041f1ec2bef57c751",
 	event = "Bufenter",
 	cmd = { "Telescope" },
 	dependencies = {
 		{
 			"nvim-lua/plenary.nvim",
-			commit = "36aaceb6e93addd20b1b18f94d86aecc552f30c4",
+			commit = "8aad4396840be7fc42896e3011751b7609ca4119",
 		},
 		{
 			"nvim-telescope/telescope-ui-select.nvim",
-			commit = "62ea5e58c7bbe191297b983a9e7e89420f581369",
+			commit = "6e51d7da30bd139a6950adf2a47fda6df9fa06d2",
 		},
 	},
 }
@@ -87,6 +87,9 @@ function M.config()
 
 					["?"] = actions.which_key,
 				},
+			},
+			preview = {
+				treesitter = true, -- use treesitter for preview so we get code highlighting
 			},
 		},
 		pickers = {

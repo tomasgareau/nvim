@@ -13,6 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = "," -- make sure to set `mapleader` before lazy so your mappings are correct
+vim.g.maplocalleader = ","
 
 -- load lazy
 require("lazy").setup("user", {

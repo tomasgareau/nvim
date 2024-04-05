@@ -12,9 +12,18 @@ local callback_keymap = function(mode, key, mapping, callback_opts)
 	vim.api.nvim_set_keymap(mode, key, "", extended_opts)
 end
 
+local function get_selection()
+	local save_h = vim.fn.getreginfo("h")
+	vim.cmd([[norm! "hy]])
+	local selection = vim.fn.getreg("h", 1)
+	vim.fn.setreg("h", save_h)
+	return selection
+end
+
 function M.default()
-	vim.g.mapleader = ","
-	vim.g.maplocalleader = ","
+  -- These are set in lazyconfig!
+	-- vim.g.mapleader = ","
+	-- vim.g.maplocalleader = ","
 
 	-- Normal mode --
 	-- Better window navigation
@@ -45,6 +54,9 @@ function M.default()
 	keymap("n", "<leader>p", '"+p', opts)
 	keymap("n", "<leader>P", '"+P', opts)
 
+	-- Close all buffers except the active one
+	keymap("n", "<leader>bda", ":%bd|e#|bd#<CR>", opts)
+
 	-- Visual mode --
 	-- Stay in visual mode while indenting
 	keymap("v", "<", "<gv", opts)
@@ -56,6 +68,9 @@ function M.default()
 	-- F3 to insert timestamp
 	keymap("n", "<F3>", '"=strftime("%s")<CR>gP', opts)
 	keymap("i", "<F3>", "<C-r>=strftime('%s')<CR>", opts)
+
+	-- Format code --
+	keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 end
 
 function M.nvim_tree()
@@ -66,6 +81,11 @@ end
 function M.telescope()
 	keymap("n", "<leader>/f", "<cmd>Telescope find_files<CR>", opts)
 	keymap("n", "<leader>//", "<cmd>Telescope live_grep<CR>", opts)
+	keymap("v", "<leader>//", function()
+		require("telescope.builtin").live_grep({
+			default_text = get_selection(),
+		})
+	end, opts)
 end
 
 function M.easy_align()
@@ -86,7 +106,6 @@ function M.lsp(bufnr)
 	bufkeymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
 	bufkeymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
 	bufkeymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-	bufkeymap(bufnr, "n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 end
 
 function M.dap()

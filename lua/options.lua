@@ -62,3 +62,5 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 		vim.opt["relativenumber"] = true
 	end,
 })
+
+vim.g.python3_host_prog = "~/.config/nvim/venv/bin/python3"

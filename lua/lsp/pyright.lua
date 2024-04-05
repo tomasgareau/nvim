@@ -1,4 +1,4 @@
-function get_python_path(dir)
+local function get_python_path(dir)
 	if vim.env.VIRTUAL_ENV then
 		return vim.env.VIRTUAL_ENV .. "/bin/python"
 	elseif vim.env.CONDA_PREFIX then
