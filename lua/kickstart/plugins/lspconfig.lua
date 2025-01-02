@@ -21,9 +21,11 @@ return {
 			{
 				"williamboman/mason.nvim",
 				opts = {
-					PATH = "append",
+					-- Mason must be loaded before dependants so we need to configure it here
+					-- You can override its default settings by adding them to this table, e.g.:
+					PATH = "append", -- append Mason's bin path so system packages take precedence
 				},
-			},
+			}, -- NOTE: Must be loaded before dependants
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
