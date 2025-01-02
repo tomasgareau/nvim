@@ -1,3 +1,35 @@
+local function get_venv_python()
+	-- Can't import this globally since lspconfig wouldn't be loaded yet
+	local util = require("lspconfig.util")
+
+	-- If there's a venv explicitly activated, use that
+	local venv_path = os.getenv("VIRTUAL_ENV")
+	if venv_path then
+		local python_path = venv_path .. "/bin/python"
+		if vim.fn.filereadable(python_path) == 1 then
+			return python_path
+		end
+	end
+
+	-- If there's a `.venv` folder in the cwd, use that
+	local python_path = vim.fn.getcwd() .. "/.venv/bin/python"
+	if vim.fn.filereadable(python_path) == 1 then
+		return python_path
+	end
+
+	-- Otherwise, try to find a `.venv` folder in the root dir for the cwd
+	local root_dir = util.root_pattern(".git", "pyproject.toml")(vim.fn.getcwd())
+	if root_dir then
+		local python_path = root_dir .. "/.venv/bin/python"
+		if vim.fn.filereadable(python_path) == 1 then
+			return python_path
+		end
+	end
+
+	-- Finally, use the system python
+	return vim.fn.executable("python3") and "python3"
+end
+
 -- LSP Plugins
 return {
 	{
@@ -218,21 +250,27 @@ return {
 				},
 
 				rust_analyzer = {
-          settings = {
-            ["rust-analyzer"] = {
-              checkOnSave = {
-                command = "clippy",
-              },
-              rustfmt = {
-                extraArgs = {
-                  "+nightly",
-                },
-              },
-            },
-          },
+					settings = {
+						["rust-analyzer"] = {
+							checkOnSave = {
+								command = "clippy",
+							},
+							rustfmt = {
+								extraArgs = {
+									"+nightly",
+								},
+							},
+						},
+					},
 				},
 
 				clangd = {},
+
+				pyright = {
+					before_init = function(_, config)
+						config.settings.python.pythonPath = get_venv_python()
+					end,
+				},
 			}
 
 			-- You can add other tools here that you want Mason to install
