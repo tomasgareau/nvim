@@ -215,6 +215,11 @@ return {
 						checkOnSave = {
 							command = "clippy",
 						},
+						rustfmt = {
+							extraArgs = {
+								"+nightly",
+							},
+						},
 					},
 				},
 			}
