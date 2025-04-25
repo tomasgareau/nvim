@@ -268,9 +268,11 @@ return {
 
 				clangd = {},
 
-				pyright = {
+				basedpyright = {
 					before_init = function(_, config)
-						config.settings.python.pythonPath = get_venv_python()
+						local python_path = get_venv_python()
+						config.settings.python = config.settings.python or {}
+						config.settings.python.pythonPath = python_path
 					end,
 				},
 			}
