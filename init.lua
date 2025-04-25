@@ -93,6 +93,11 @@ vim.g.maplocalleader = ","
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Set termguicolors for plugins that may need it (colorscheme, bufferline)
+if vim.fn.has("termguicolors") then
+	vim.opt.termguicolors = true
+end
+
 -- [[ Setting options ]]
 require("options")
 
