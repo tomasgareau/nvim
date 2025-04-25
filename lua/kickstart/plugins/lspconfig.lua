@@ -11,22 +11,21 @@ local function get_venv_python()
 		end
 	end
 
-	-- If there's a `.venv` folder in the cwd, use that
-	local python_path = vim.fn.getcwd() .. "/.venv/bin/python"
-	if vim.fn.filereadable(python_path) == 1 then
-		return python_path
-	end
-
-	-- Otherwise, try to find a `.venv` folder in the root dir for the cwd
-	local root_dir = util.root_pattern(".git", "pyproject.toml")(vim.fn.getcwd())
-	if root_dir then
-		local python_path = root_dir .. "/.venv/bin/python"
+	-- Otherwise, walk up to the filesystem root looking for a `.venv` folder
+	local venv_found = vim.fs.find(".venv", {
+		path = vim.fn.expand("%:p:h"),
+		upward = true,
+		type = "directory",
+		limit = 1,
+	})[1]
+	if venv_found then
+		local python_path = venv_found .. "/bin/python"
 		if vim.fn.filereadable(python_path) == 1 then
 			return python_path
 		end
 	end
 
-	-- Finally, use the system python
+	-- Fallback to the system python
 	return vim.fn.executable("python3") and "python3"
 end
 
