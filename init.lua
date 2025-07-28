@@ -700,6 +700,8 @@ require('lazy').setup({
             },
           },
         },
+
+        ruff = {},
       }
       ---@type MasonLspconfigSettings
       ---@diagnostic disable-next-line: missing-fields
