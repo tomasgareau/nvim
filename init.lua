@@ -669,7 +669,13 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        basedpyright = {
+          before_init = function(_, config)
+            local python_path = utils.get_venv_python()
+            config.settings.python = config.settings.python or {}
+            config.settings.python.pythonPath = python_path
+          end,
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
